@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 CONN_MAX_AGE = config("CONN_MAX_AGE", cast=int, default=30)
-DATABASE_URL = config("DATABASE_URL", cast=str)
+DATABASE_URL = config("DATABASE_URL", default=None)
 
 if DATABASE_URL is not None:
   import dj_database_url
