@@ -4,13 +4,13 @@ ARG PYTHON_VERSION=3.12-slim-bullseye
 FROM python:${PYTHON_VERSION}
 
 # Create a virtual environment
-RUN python3 -m venv /opt/venv
+RUN python -m venv /opt/venv
 
 # Set the virtual environment as the current location
 ENV PATH=/opt/venv/bin:$PATH
 
 # Upgrade pip
-RUN pip3 install --upgrade pip3
+RUN pip install --upgrade pip
 
 # Set Python-related environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -41,7 +41,7 @@ COPY requirements.txt /tmp/requirements.txt
 COPY ./src /code
 
 # Install the Python project requirements
-RUN pip3 install -r /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt
 
 ARG DJANGO_SECRET_KEY
 ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
@@ -52,8 +52,8 @@ ENV DJANGO_DEBUG=${DJANGO_DEBUG}
 # database isn't available during build
 # run any other commands that do not need the database
 # such as:
-RUN python3 manage.py vendor_pull
-RUN python3 manage.py collectstatic --noinput
+RUN python manage.py vendor_pull
+RUN python manage.py collectstatic --noinput
 # whitenoise -> s3
 
 # set the Django default project name
